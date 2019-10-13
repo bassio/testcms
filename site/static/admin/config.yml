@@ -151,6 +151,9 @@ collections: # A list of collections the CMS should be able to edit
     label: "Tracks"
     label_singular: "Track"
     folder: "site/data/track"
+    extension: "json"
+    format: "json"
+    create: true
     fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Record Side", name: "record_side", widget: "string"}
