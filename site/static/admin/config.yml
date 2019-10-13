@@ -93,9 +93,11 @@ collections: # A list of collections the CMS should be able to edit
     fields:
       - {label: "Title of Release", name: "title", widget: "string"}
       - {label: "Label", name: "label", widget: "string"}
-      - {label: "Catalogue Number", name: "catalogue_number", widget: "list", allow_add: true}
-      - {label: "Record Count", name: "record_count", widget: "number", default: 1, valueType: "int"}
+      - {label: "Catalogue Numbers", name: "catalogue_numbers", widget: "list", allow_add: true,
+            field: {label: "Catalogue number", name: "catalogue_number", widget: "string"}
+         }
       - {label: "Release Type", name: "release_type", widget: "select", default: "Commercial", options: ["Commercial", "Prova"]}
+      - {label: "Record Count", name: "record_count", widget: "number", default: 1, valueType: "int"}
       - {label: "Media Type",
          name: "media_type",
          widget: "select",
@@ -126,10 +128,14 @@ collections: # A list of collections the CMS should be able to edit
          widget: "list",
          allow_add: true,
          fields: [
-            {name: "role", label: "Role", widget: "select",
+            {name: "contributor_role",
+             label: "Role",
+             widget: "select",
              options: ["Artist", "Composer", "Conductor", "Musician", "Performer", "Performing Group", "Recording Engineer", "Vocalist", "Writer"]
             },
-            {name: "contributor", label: "Contributor", widget: "relation",
+            {name: "contributor",
+             label: "Contributor",
+             widget: "relation",
              collection: "agent", 
              searchFields: ["name"],
              valueField: "name",
