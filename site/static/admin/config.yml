@@ -27,16 +27,20 @@ collections: # A list of collections the CMS should be able to edit
           - {label: Image, name: image, widget: image}
           - {label: "Blurb", name: blurb, widget: object, fields: [
               {label: "Heading", name: "heading", widget: string},
-              {label: "Text", name: "text", widget: "text"}]}
+              {label: "Text", name: "text", widget: "text"}
+              ]}
           - {label: "Intro", name: intro, widget: object, fields: [
               {label: "Heading", name: "heading", widget: string},
-              {label: "Text", name: "text", widget: "text"}]}
+              {label: "Text", name: "text", widget: "text"}
+              ]}
           - {label: "Products", name: products, widget: list, fields: [
               {label: "Image", name: "image", widget: "image"},
-              {label: "Text", name: "text", widget: "text"}]}
+              {label: "Text", name: "text", widget: "text"}
+              ]}
           - {label: "Values", name: "values", widget: "object", fields: [
               {label: "Heading", name: "heading", widget: string},
-              {label: "Text", name: "text", widget: "text"}]}
+              {label: "Text", name: "text", widget: "text"}
+              ]}
 
 
   - name: "musicalwork"
@@ -49,7 +53,9 @@ collections: # A list of collections the CMS should be able to edit
     fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Title (Ar)", name: "title_ar", widget: "datetime"}
-      - {label: "Alternate Title", name: "alternate_title", widget: "string", multiple: true}
+      - {label: "Alternate Titles", name: "alternate_titles", widget: "list", allow_add: true,
+            field: {label: "Alternate Title", name: "alt_title", widget: "string"}
+         }
       - {label: "Lyrics", name: "lyrics", widget: "text"}
 
   - name: "genre"
@@ -74,7 +80,9 @@ collections: # A list of collections the CMS should be able to edit
     fields:
       - {label: "Name", name: "name", widget: "string"}
       - {label: "Name (Ar)", name: "name_ar", widget: "datetime"}
-
+      - {label: "Alternate Names", name: "alternate_names", widget: "list", allow_add: true,
+            field: {label: "Alternate Name", name: "alt_name", widget: "string"}
+         }
   - name: "release"
     label: "Releases"
     label_singular: "Release"
@@ -85,7 +93,7 @@ collections: # A list of collections the CMS should be able to edit
     fields:
       - {label: "Title of Release", name: "title", widget: "string"}
       - {label: "Label", name: "label", widget: "string"}
-      - {label: "Catalogue Number", name: "catalogue_number", multiple: true, widget: "string"}
+      - {label: "Catalogue Number", name: "catalogue_number", widget: "list", allow_add: true}
       - {label: "Record Count", name: "record_count", widget: "number", default: 1, valueType: "int"}
       - {label: "Release Type", name: "release_type", widget: "select", default: "Commercial", options: ["Commercial", "Prova"]}
       - {label: "Media Type",
@@ -115,10 +123,12 @@ collections: # A list of collections the CMS should be able to edit
       - {label: "Track Number", name: "track_number", multiple: true, widget: "string"}
       - {label: "Artists and Contributors",
          name: "contributors",
-         widget: "object",
-         multiple: true,
+         widget: "list",
+         allow_add: true,
          fields: [
-            {name: "role", label: "Role", widget: "select", options: ["Artist", "Composer", "Conductor", "Musician", "Performer", "Performing Group", "Recording Engineer", "Vocalist", "Writer"]},
+            {name: "role", label: "Role", widget: "select",
+             options: ["Artist", "Composer", "Conductor", "Musician", "Performer", "Performing Group", "Recording Engineer", "Vocalist", "Writer"]
+            },
             {name: "contributor", label: "Contributor", widget: "relation",
              collection: "agent", 
              searchFields: ["name"],
@@ -126,6 +136,7 @@ collections: # A list of collections the CMS should be able to edit
              displayFields: ["name"]}
              ]
          }
+         
          
       - file: "site/content/contact/_index.md"
         label: "Contact Page"
