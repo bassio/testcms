@@ -119,6 +119,7 @@ collections: # A list of collections the CMS should be able to edit
     label: "Tracks"
     label_singular: "Track"
     folder: "site/data/track"
+    fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Record Side", name: "record_side", widget: "string"}
       - {label: "Track Number", name: "track_number", multiple: true, widget: "string"}
@@ -134,7 +135,7 @@ collections: # A list of collections the CMS should be able to edit
              valueField: "name",
              displayFields: ["name"]}
              ]
-         
+         }
          
       - file: "site/content/contact/_index.md"
         label: "Contact Page"
