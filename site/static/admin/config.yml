@@ -122,18 +122,18 @@ collections: # A list of collections the CMS should be able to edit
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Record Side", name: "record_side", widget: "string"}
       - {label: "Track Number", name: "track_number", multiple: true, widget: "string"}
-      - label: "Artists and Contributors"
-        name: "contributors"
-        widget: "object"
-        multiple: true
-        fields:
-          - {name: "role", label: "Role", widget: "select", options: ["Artist", "Composer", "Conductor", "Musician", "Performer", "Performing Group", "Recording Engineer", "Vocalist", "Writer"]}
-          - {name: "contributor", label: "Contributor", widget: "relation",
+      - {label: "Artists and Contributors",
+         name: "contributors",
+         widget: "object",
+         multiple: true,
+         fields: [
+            {name: "role", label: "Role", widget: "select", options: ["Artist", "Composer", "Conductor", "Musician", "Performer", "Performing Group", "Recording Engineer", "Vocalist", "Writer"]},
+            {name: "contributor", label: "Contributor", widget: "relation",
              collection: "agent", 
              searchFields: ["name"],
              valueField: "name",
-             displayFields: ["name"]
-            }
+             displayFields: ["name"]}
+             ]
          
          
       - file: "site/content/contact/_index.md"
