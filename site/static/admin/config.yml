@@ -37,6 +37,105 @@ collections: # A list of collections the CMS should be able to edit
           - {label: "Values", name: "values", widget: "object", fields: [
               {label: "Heading", name: "heading", widget: string},
               {label: "Text", name: "text", widget: "text"}]}
+collections: # A list of collections the CMS should be able to edit
+  - name: "post" # Used in routes, ie.: /admin/collections/:slug/edit
+    label: "Post" # Used in the UI, ie.: "New Post"
+    folder: "site/content/post" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    fields: # The fields each document in this collection have
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Intro Blurb", name: "description", widget: "text"}
+      - {label: "Image", name: "image", widget: "image", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+      
+  - name: "musicalwork"
+    label: "Musical Works"
+    label_singular: "Musical Work"
+    folder: "site/data/musicalwork"
+    extension: "json"
+    format: "json"
+    create: true
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Title (Ar)", name: "title_ar", widget: "datetime"}
+      - {label: "Alternate Title", name: "alternate_title", widget: "string", multiple: true}
+      - {label: "Lyrics", name: "lyrics", widget: "text"}
+
+  - name: "genre"
+    label: "Genres"
+    label_singular: "Genre"
+    folder: "site/data/genre"
+    extension: "json"
+    format: "json"
+    create: true
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Title (Ar)", name: "title_ar", widget: "string"}
+
+  - name: "agent"
+    label: "Agents"
+    label_singular: "Agent"
+    folder: "site/data/agent"
+    extension: "json"
+    format: "json"
+    create: true
+    identifier_field: "name"
+    fields:
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Name (Ar)", name: "name_ar", widget: "datetime"}
+
+  - name: "release"
+    label: "Releases"
+    label_singular: "Release"
+    folder: "site/data/release"
+    extension: "json"
+    format: "json"
+    create: true
+    fields:
+      - {label: "Title of Release", name: "title", widget: "string"}
+      - {label: "Label", name: "label", widget: "string"}
+      - {label: "Catalogue Number", name: "catalogue_number", multiple: true, widget: "string"}
+      - {label: "Record Count", name: "record_count", widget: "number", default: 1, valueType: "int"}
+      - {label: "Release Type", name: "release_type", widget: "select", default: "Commercial", options: ["Commercial", "Prova"]}
+      - {label: "Media Type",
+         name: "media_type",
+         widget: "select",
+         default: 1,
+         options: ["Shellac disc [10 inch]",
+                   "Shellac disc [12 inch]",
+                   "Vinyl recording",
+                   "Wax Cylinder"]
+                   }
+      - {label: "Artist", name: "artist", widget: "relation",
+         collection: "agent", 
+         searchFields: ["name"],
+         valueField: "name",
+         displayFields: ["name"],
+         multiple: true
+         }
+         
+  - name: "track"
+    label: "Tracks"
+    label_singular: "Track"
+    folder: "site/data/track"
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Record Side", name: "record_side", widget: "string"}
+      - {label: "Track Number", name: "track_number", multiple: true, widget: "string"}
+      - label: "Artists and Contributors"
+        name: "contributors"
+        widget: "object"
+        multiple: true
+        fields:
+          - {name: "role", label: "Role", widget: "select", options: ["Artist", "Composer", "Conductor", "Musician", "Performer", "Performing Group", "Recording Engineer", "Vocalist", "Writer"]}
+          - {name: "contributor", label: "Contributor", widget: "relation",
+             collection: "agent", 
+             searchFields: ["name"],
+             valueField: "name",
+             displayFields: ["name"]
+            }
+         
+         
       - file: "site/content/contact/_index.md"
         label: "Contact Page"
         name: "contact"
