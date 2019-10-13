@@ -42,7 +42,6 @@ collections: # A list of collections the CMS should be able to edit
               {label: "Text", name: "text", widget: "text"}
               ]}
 
-
   - name: "musicalwork"
     label: "Musical Works"
     label_singular: "Musical Work"
@@ -57,7 +56,33 @@ collections: # A list of collections the CMS should be able to edit
             field: {label: "Alternate Title", name: "alt_title", widget: "string"}
          }
       - {label: "Lyrics", name: "lyrics", widget: "text"}
-
+      - {label: "Genre", name: "genre", widget: "relation",
+         collection: "genre", 
+         searchFields: ["name"],
+         valueField: "name",
+         displayFields: ["name"],
+         multiple: false
+         }
+      - {label: "Contributors",
+         name: "contributors",
+         widget: "list",
+         allow_add: true,
+         fields: [
+            {name: "contributor_role",
+             label: "Role",
+             widget: "select",
+             options: ["Composer", "Writer"]
+            },
+            {name: "contributor",
+             label: "Contributor",
+             widget: "relation",
+             collection: "agent", 
+             searchFields: ["name"],
+             valueField: "name",
+             displayFields: ["name"]}
+             ]
+         }
+         
   - name: "genre"
     label: "Genres"
     label_singular: "Genre"
@@ -65,9 +90,10 @@ collections: # A list of collections the CMS should be able to edit
     extension: "json"
     format: "json"
     create: true
+    identifier_field: "name"
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Title (Ar)", name: "title_ar", widget: "string"}
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Name (Ar)", name: "name_ar", widget: "string"}
 
   - name: "agent"
     label: "Agents"
@@ -83,6 +109,12 @@ collections: # A list of collections the CMS should be able to edit
       - {label: "Alternate Names", name: "alternate_names", widget: "list", allow_add: true,
             field: {label: "Alternate Name", name: "alt_name", widget: "string"}
          }
+      - {name: "usual_role",
+         label: "Usual Role",
+         widget: "select",
+         options: ["Artist", "Composer", "Conductor", "Musician", "Performer", "Performing Group", "Recording Engineer", "Vocalist", "Writer"]
+         }
+         
   - name: "release"
     label: "Releases"
     label_singular: "Release"
@@ -93,8 +125,8 @@ collections: # A list of collections the CMS should be able to edit
     fields:
       - {label: "Title of Release", name: "title", widget: "string"}
       - {label: "Label", name: "label", widget: "string"}
-      - {label: "Catalogue Numbers", name: "catalogue_numbers", widget: "list", allow_add: true,
-            field: {label: "Catalogue number", name: "catalogue_number", widget: "string"}
+      - {label: "Catalogue Numbers", label_singular: "Catalogue Number", name: "catalogue_numbers", widget: "list", allow_add: true,
+            field: {label: "Catalogue Number", name: "catalogue_number", widget: "string"}
          }
       - {label: "Release Type", name: "release_type", widget: "select", default: "Commercial", options: ["Commercial", "Prova"]}
       - {label: "Record Count", name: "record_count", widget: "number", default: 1, valueType: "int"}
@@ -123,6 +155,14 @@ collections: # A list of collections the CMS should be able to edit
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Record Side", name: "record_side", widget: "string"}
       - {label: "Track Number", name: "track_number", multiple: true, widget: "string"}
+      - {label: "Musical Work",
+         name: "work",
+         widget: "relation",
+         collection: "musicalwork", 
+         searchFields: ["genre", "name"],
+         valueField: "name",
+         displayFields: ["genre", "name"]
+         }
       - {label: "Artists and Contributors",
          name: "contributors",
          widget: "list",
